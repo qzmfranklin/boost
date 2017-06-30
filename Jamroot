@@ -133,6 +133,7 @@ import notfile ;
 import virtual-target ;
 import "class" : new ;
 import property-set ;
+import option ;
 
 path-constant BOOST_ROOT : . ;
 constant BOOST_VERSION : 1.65.0 ;
@@ -292,7 +293,9 @@ rule boost-install ( libraries * )
         : # No headers, it is handled by the dependency.
     ;
 
-    install stage : $(libraries) : <location>$(BOOST_STAGE_LOCATE) ;
+    local stage-locate = [ option.get stagedir : $(BOOST_ROOT)/stage ] ;
+
+    install stage : $(libraries) : <location>$(stage-locate) ;
 
     module [ CALLER_MODULE ]
     {
