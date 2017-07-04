@@ -1,7 +1,7 @@
 def boost_library(name, defines=[], includes=[], hdrs=[], srcs=[], deps=[], copts=[]):
     includes_pattern = 'libs/%s/include'
     hdrs_pattern1 = includes_pattern + '/boost/**/*.h'
-    hdrs_pattern2 = includes_pattern + '/boost/**/*pp'
+    hdrs_pattern2 = includes_pattern + '/boost/**/*.*pp' # .ipp and .hpp
     return native.cc_library(
         name = name,
         visibility = [

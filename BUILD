@@ -13,8 +13,16 @@ boost_library(
 
 boost_library(name = 'align')
 boost_library(name = 'assert')
-boost_library(name = 'asio')
+
+boost_library(
+    name = 'asio',
+    deps = [
+        ':throw_exception',
+    ],
+)
+
 boost_library(name = 'atomic')
+boost_library(name = 'array')
 boost_library(name = 'bind')
 
 boost_library(
@@ -25,7 +33,11 @@ boost_library(
 )
 
 boost_library(name = 'concept_check')
-boost_library(name = 'config')
+
+boost_library(
+    name = 'config',
+)
+
 boost_library(name = 'container')
 
 boost_library(
@@ -49,7 +61,13 @@ boost_library(
 
 boost_library(name = 'conversion')
 boost_library(name = 'core')
-boost_library(name = 'date_time')
+boost_library(name = 'crc')
+boost_library(
+    name = 'date_time',
+    deps = [
+        ':smart_ptr',
+    ],
+)
 boost_library(name = 'detail')
 
 boost_library(
@@ -124,70 +142,104 @@ boost_library(
   ],
 )
 
+boost_library(name = 'io')
+
 boost_library(
-  name = 'io',
+    name = 'lexical_cast',
+    deps = [
+        ':array',
+        ':container',
+        ':numeric',
+        ':range',
+    ],
+)
+
+boost_library(name = 'math')
+boost_library(name = 'move')
+
+boost_library(
+    name = 'mpl',
+    deps = [
+        ':move',
+        ':preprocessor',
+    ]
 )
 
 boost_library(
-  name = 'math',
+    name = 'multi_index',
+    deps = [
+        ':foreach',
+        ':serialization',
+        ':static_assert',
+        ':tuple',
+    ],
 )
 
 boost_library(
-  name = 'move',
+    name = 'multiprecision',
+    deps = [
+        ':rational',
+    ],
 )
 
 boost_library(
-  name = 'mpl',
-  deps = [
-    ':preprocessor',
-    ':move',
-  ]
-)
-
-boost_library(
-  name = 'multi_index',
-  deps = [
-    ':foreach',
-    ':serialization',
-    ':static_assert',
-    ':tuple',
-  ],
+    name = 'numeric',
+    hdrs = glob([
+        'libs/numeric/conversion/include/**/*.hpp',
+        'libs/numeric/odeint/include/**/*.hpp',
+        'libs/numeric/ublas/include/**/*.hpp',
+    ]),
+    includes = [
+        'libs/numeric/conversion/include',
+        'libs/numeric/odeint/include',
+        'libs/numeric/ublas/include',
+    ],
 )
 
 boost_library(name = 'optional')
 boost_library(name = 'parameter')
+
+boost_library(
+    name = 'pool',
+    deps = [
+        ':integer',
+    ],
+)
+
 boost_library(name = 'predef')
 boost_library(name = 'preprocessor')
 
 boost_library(
-  name = 'range',
-  deps = [
-    ':concept_check',
-    ':optional',
-  ]
+    name = 'range',
+    deps = [
+        ':concept_check',
+        ':optional',
+        ':iterator',
+    ]
 )
 
 boost_library(name = 'ratio')
+boost_library(name = 'rational')
 
 boost_library(
-  name = 'regex',
-  defines = [
-    'BOOST_FALLTHROUGH'
-  ],
-  srcs = glob([
-    'regex/src/*.cpp',
-    'regex/src/*.hpp',
-  ]),
-  deps = [
-    ':assert',
-    ':config',
-    ':functional',
-    ':integer',
-    ':mpl',
-    ':smart_ptr',
-    ':throw_exception',
-    ':type_traits',
-  ]
+    name = 'regex',
+    defines = [
+        'BOOST_FALLTHROUGH',
+    ],
+    srcs = glob([
+        'regex/src/*.cpp',
+        'regex/src/*.hpp',
+    ]),
+    deps = [
+        ':assert',
+        ':config',
+        ':functional',
+        ':integer',
+        ':mpl',
+        ':smart_ptr',
+        ':throw_exception',
+        ':type_traits',
+    ]
 )
 
 boost_library(name = 'serialization')
@@ -270,7 +322,9 @@ boost_library(name = 'utility')
 boost_library(
   name = 'variant',
   deps = [
+    ':functional',
     ':math',
+    ':throw_exception',
     ':type_index',
   ]
 )
