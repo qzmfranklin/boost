@@ -12,3 +12,5 @@
 /.settings/
 /.project
 /.pydevproject
+
+bazel-*
