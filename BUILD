@@ -260,7 +260,7 @@ boost_library(name = 'static_assert')
 boost_library(
   name = 'system',
   srcs = glob([
-    'system/src/*.cpp',
+    'libs/system/src/*.cpp',
   ]),
   deps = [
     ':assert',
