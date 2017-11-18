@@ -1,4 +1,9 @@
 def boost_library(name, defines=[], includes=[], hdrs=[], srcs=[], deps=[], copts=[]):
+    boost_copts = [
+        # The options below suppress non-harmful compile time warnings that are
+        # known to exist in boost libraries.
+        '-Wno-deprecated-declarations',
+    ]
     includes_pattern = 'libs/%s/include'
     hdrs_pattern1 = includes_pattern + '/boost/**/*.h'
     hdrs_pattern2 = includes_pattern + '/boost/**/*.*pp' # .ipp and .hpp
@@ -17,5 +22,5 @@ def boost_library(name, defines=[], includes=[], hdrs=[], srcs=[], deps=[], copt
         ]) + hdrs,
         srcs = srcs,
         deps = deps,
-        copts = copts,
+        copts = copts + boost_copts,
     )
